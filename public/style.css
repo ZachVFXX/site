@@ -1,0 +1,97 @@
+:root {
+  --bg: #fdfdfc;
+  --fg: #1d1d1f;
+  --link: #1a56c4;
+  --border: #cfcfcf;
+  --note-line: #8a8a8a;
+  --tooltip-bg: #252525;
+  --tooltip-fg: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16171a;
+    --fg: #e6e6e6;
+    --link: #7aa7ff;
+    --border: #3a3b40;
+    --note-line: #777777;
+    --tooltip-bg: #f0f0f0;
+    --tooltip-fg: #16171a;
+  }
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  max-width: 46rem;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  font: 17px/1.65 system-ui, sans-serif;
+}
+
+p { margin: 0 0 0.9em; }
+a { color: var(--link); }
+
+ul, ol { margin: 0 0 0.9em; padding-left: 1.5rem; }
+li > p { margin: 0; }
+
+/* ---------- images ---------- */
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+/* ---------- tables ---------- */
+table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+td, th {
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.6rem;
+  vertical-align: top;
+}
+td > p:last-child { margin-bottom: 0; }
+
+/* ---------- annotations (Wikipedia-style tooltip) ---------- */
+.annotated {
+  position: relative;
+  cursor: help;
+  text-decoration: underline dotted var(--note-line);
+  text-underline-offset: 3px;
+}
+
+.annotated::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: min(320px, calc(100vw - 2rem));
+  padding: 10px 12px;
+  background: var(--tooltip-bg);
+  color: var(--tooltip-fg);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  white-space: pre-line; /* turns the "\n" between note paragraphs into line breaks */
+  overflow-wrap: anywhere;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+  z-index: 1000;
+}
+
+.annotated:hover::after,
+.annotated:focus::after {
+  opacity: 1;
+  visibility: visible;
+}

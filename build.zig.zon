@@ -1,0 +1,22 @@
+.{
+    .name = .site,
+    .version = "0.0.0",
+    .fingerprint = 0x694309e4d3f4a115, // Changing this has security and trust implications.
+    .minimum_zig_version = "0.17.0",
+    .dependencies = .{
+        .xml = .{
+            .url = "git+https://github.com/zig-utils/zig-xml.git#f683f39fdfb845fa6dca2c776e3d03271f922a22",
+            .hash = "zig_xml-0.2.0-Lvy3xeipAgCUrrv8lGeXgv0isfW9cht6cYZgdeNoi8zx",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+        "contents",
+        "public",
+        // For example...
+        //"LICENSE",
+        //"README.md",
+    },
+}
