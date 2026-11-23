@@ -16,7 +16,7 @@ pub fn main(init: std.process.Init) !void {
     defer tmp.close(io);
     defer std.Io.Dir.cwd().deleteTree(io, ".odt-tmp") catch unreachable;
 
-    var public = try std.Io.Dir.cwd().openDir(io, "public", .{});
+    var public = try std.Io.Dir.cwd().createDirPathOpen(io, "docs", .{});
     defer public.close(io);
 
     const odt = Odt.init(io, src, tmp);
@@ -40,5 +40,5 @@ pub fn main(init: std.process.Init) !void {
     try convert.convert(alloc, content, &out);
     try out.raw("\n</body></html>\n");
 
-    try std.Io.Dir.cwd().writeFile(io, .{ .sub_path = "public/index.html", .data = out.bytes() });
+    try std.Io.Dir.cwd().writeFile(io, .{ .sub_path = "docs/index.html", .data = out.bytes() });
 }
